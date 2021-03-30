@@ -22,7 +22,7 @@ const InboundQueues = ({ inboundQueues }) => {
     );
 
     return (
-        <Container headingVariant='h4' title='Default Outbound Queue'>
+        <Container headingVariant='h4' title='Inbound Queue'>
             <ColumnLayout>
                 <Column>
                     <Stack>
