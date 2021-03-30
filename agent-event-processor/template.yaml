@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  agent-event-processor
+
+  API and backend resources for Agent Event Streams in Amazon Connect
+
+Resources:
+  StateChangeTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: AgentStateChangeTable-AgentEventApplication
+      AttributeDefinitions:
+        - AttributeName: EventId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: EventId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 20
+        WriteCapacityUnits: 5
+
+  LoginLogoutTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: AgentLoginLogoutTable-AgentEventApplication
+      AttributeDefinitions:
+        - AttributeName: EventId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: EventId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 20
+        WriteCapacityUnits: 5
+  
+  HeartBeatTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: AgentHeartBeatTable-AgentEventApplication
+      AttributeDefinitions:
+        - AttributeName: EventId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: EventId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 20
+        WriteCapacityUnits: 5
+
+  AgentEventStream:
+    Type: AWS::Kinesis::Stream
+    Properties:
+      ShardCount: 1
+
+  AgentEventProcessorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt LambdaFunctionIamRole.Arn
+      CodeUri: agent_event_processor_function/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Timeout: 300
+      Events:
+        AgentEventEvent:
+          Type: Kinesis
+          Properties:
+            StartingPosition: LATEST
+            Stream: !GetAtt AgentEventStream.Arn
+
+  AgentEventAPIFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      Role: !GetAtt LambdaFunctionIamRole.Arn
+      CodeUri: agent_event_api_function/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Timeout: 300
+      Events:
+        ListAgentEvent:
+          Type: Api 
+          Properties:
+            Path: /agent_event
+            Method: get
+    
+  LambdaFunctionIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - 'lambda.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess'
+        - 'arn:aws:iam::aws:policy/AmazonKinesisFullAccess'
+
+Outputs:
+  AgentEventApi:
+    Description: "API Gateway endpoint URL for Prod stage for Agent Event API function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/agent_event"
+  KinesisStream:
+    Description: "Kinesis Data Stream for Agent Event Streams"
+    Value: !Ref AgentEventStream

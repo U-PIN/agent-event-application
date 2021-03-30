@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - yum install jq -y
+  pre_build:
+    commands: 
+      - echo REACT_APP_AGENT_EVENT_API=$(cat ${CODEBUILD_SRC_DIR_AgentEventProcessorDeployArtifact}/AgentEventProcessorOutput.json | jq '.AgentEventApi') > $CODEBUILD_SRC_DIR/agent-event-viewer/.env
+      - cat $CODEBUILD_SRC_DIR/agent-event-viewer/.env
+      - cd $CODEBUILD_SRC_DIR/agent-event-viewer
+      - if [ -e /tmp/node_modules.tar ]; then tar xf /tmp/node_modules.tar; fi
+      - npm install
+  build:
+    commands:
+      - cd $CODEBUILD_SRC_DIR/agent-event-viewer
+      - npm run build
+  post_build:
+    commands:
+      - echo ${CODEBUILD_SRC_DIR_AgentEventViewerHostingDeployArtifact}
+      - aws s3 sync $CODEBUILD_SRC_DIR/agent-event-viewer/build s3://$(cat ${CODEBUILD_SRC_DIR_AgentEventViewerHostingDeployArtifact}/AgentEventViewerHostingOutput.json | jq '.AsettsBucket' | sed -e s/\"//g)
+      - echo "build completed on `date`"
+artifacts:
+  files:
+    - '**/*'
+  base-directory: $CODEBUILD_SRC_DIR/agent-event-viewer/build

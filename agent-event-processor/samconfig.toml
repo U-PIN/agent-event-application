@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "agent-event-test"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-rkzisnhx9hm7"
+s3_prefix = "agent-event-test"
+region = "us-west-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"

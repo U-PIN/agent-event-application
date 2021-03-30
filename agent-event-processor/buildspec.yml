@@ -1,0 +1,19 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - echo "nothing to do in install"
+  build:
+    commands:
+      - echo "Starting build `date` in `pwd`"
+      - echo "creating cloudformation\package and uploading to artifact store"
+      - aws cloudformation package --template-file ./agent-event-processor/template.yaml --s3-bucket $BUILD_OUTPUT_BUCKET --output-template-file ./agent-event-processor/packaged.yaml
+  post_build:
+    commands:
+      - echo "build completed on `date`"
+
+artifacts:
+  files:
+    - ./agent-event-processor/packaged.yaml
+  discard-paths: yes
