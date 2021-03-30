@@ -1,7 +1,6 @@
 # Agent Event Streams Application
 
 ## Description
-------------
 This enables you to easily build and deploy backend and frontend for Agent Event Sterams in Amazon Connect. <br><br> 
 
 
@@ -144,7 +143,7 @@ https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-stream-model.h
 
 
 ## Play with agent events
-------------
+
 If you used CodePipeline to deploy the app, go look at the output of the CloudFormation stack ```AgentEventViewerHosting-[The first stack name]```. You will find ```URL``` gives you CloudFront URL like ```https://xxxxxxxxxxxxxx.cloudfront.net``` which is where the frontend application is hosted. <br>
 If you manually built and deployed the app with SAM CLI and CloudFormation, you've already obtained the URL in the Step 3. <br>
 Open the app in your browser and play with agent events in Amazon Connect!<br>
