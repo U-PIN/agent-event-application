@@ -1,7 +1,10 @@
 # Agent Event Streams Application
 
 ## Description
-This enables you to easily build and deploy backend and frontend for Agent Event Sterams in Amazon Connect. <br><br> 
+This enables you to easily build and deploy backend and frontend for Agent Event Sterams in Amazon Connect. <br>
+The picture below describes the high-level architecture of this application.
+
+![AgentEventViewer_1](docs/AgentEventViewer_1.png)
 
 
 ## Deployment Steps
@@ -149,4 +152,4 @@ If you manually built and deployed the app with SAM CLI and CloudFormation, you'
 Open the app in your browser and play with agent events in Amazon Connect!<br>
 Also, if you are interested, modify the frontend app to customize Agent Event Streams experience as you like, which leads to your better understanding on the concept. 
 
-![AgentEventViewer_1](docs/AgentEventViewer_1.png)
+![AgentEventViewer_2](docs/AgentEventViewer_2.png)
