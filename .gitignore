@@ -1,0 +1,3 @@
+agent-event-viewer/build
+agent-event-viewer/node_modules
+agent-event-viewer/.env
