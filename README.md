@@ -9,7 +9,7 @@ The picture below describes the high-level architecture of this application.
 
 ## Deployment Steps
 
-### Option 1: Use CodePipeline to automate your deployment (Recommended)
+### Option 1: Use CloudFormation to automate your deployment (Recommended)
 ------------
 **Step 1. Download the source and make CodeCommit repository in your AWS account**<br>
 
