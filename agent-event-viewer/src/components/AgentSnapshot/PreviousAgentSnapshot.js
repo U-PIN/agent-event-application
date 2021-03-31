@@ -52,7 +52,7 @@ const PreviousAgentSnapshot = ({ agentEvent }) => {
                 </DialogActions>
             </Dialog>
         </div>
-    )
+    );
 }
 
 export default PreviousAgentSnapshot;

@@ -29,8 +29,10 @@ const columnDefinitions = [
         Header: 'Current Agent Snapshot',
         accessor: 'CurrentAgentSnapshot.AgentStatus.Name',
         Cell: ({row}) => {
-            if (row && row.original) {
+            if (row && row.original && row.original.CurrentAgentSnapshot != null) {
                 return <CurrentAgentSnapshot agentEvent={row.original} />
+            } else {
+                return "";
             }
         }
     },
@@ -40,8 +42,10 @@ const columnDefinitions = [
         Header: 'Previous Agent Snapshot',
         accessor: 'PreviousAgentSnapshot.AgentStatus.Name',
         Cell: ({row}) => {
-            if (row && row.original) {
+            if (row && row.original && row.original.PreviousAgentSnapshot != null) {
                 return <PreviousAgentSnapshot agentEvent={row.original} />
+            } else {
+                return "";
             }
         }
     },
@@ -63,11 +67,11 @@ const columnDefinitions = [
         Header: 'Current Contacts',
         accessor: 'CurrentAgentSnapshot.Contacts[0].State',
         Cell: ({row}) => {
-            if (row && row.original.CurrentAgentSnapshot.Contacts.length > 0) {
+            if (row && row.original.CurrentAgentSnapshot != null && row.original.CurrentAgentSnapshot.Contacts.length > 0) {
                 return <Contact contacts={row.original.CurrentAgentSnapshot.Contacts} />
             }
             else {
-                return ""
+                return "";
             }
         }
     },
@@ -77,11 +81,11 @@ const columnDefinitions = [
         Header: 'Previous Contacts',
         accessor: 'PreviousAgentSnapshot.Contacts[0].State',
         Cell: ({row}) => {
-            if (row && row.original.PreviousAgentSnapshot.Contacts.length > 0) {
+            if (row && row.original.PreviousAgentSnapshot != null && row.original.PreviousAgentSnapshot.Contacts.length > 0) {
                 return <Contact contacts={row.original.PreviousAgentSnapshot.Contacts} />
             }
             else {
-                return ""
+                return "";
             }
         }
     }
