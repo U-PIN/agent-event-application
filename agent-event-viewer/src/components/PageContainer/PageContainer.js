@@ -8,33 +8,35 @@ class PageContainer extends React.PureComponent {
   constructor(props) {
       super(props);
 
-      const defaultDatetime = new Date();
-      const startTime = defaultDatetime.getUTCFullYear() + 
+      const endDatetime = new Date();
+      const endTime = endDatetime.getUTCFullYear() + 
                   '-' + 
-                  (defaultDatetime.getUTCMonth() + 1).toString().padStart(2, '0') + 
+                  (endDatetime.getUTCMonth() + 1).toString().padStart(2, '0') + 
                   '-' + 
-                  (defaultDatetime.getUTCDate() - 3).toString().padStart(2, '0') + 
+                  endDatetime.getUTCDate().toString().padStart(2, '0') + 
                   'T' + 
-                  defaultDatetime.getUTCHours().toString().padStart(2, '0') + 
+                  endDatetime.getUTCHours().toString().padStart(2, '0') + 
                   ':' + 
-                  defaultDatetime.getUTCMinutes().toString().padStart(2, '0') + 
+                  endDatetime.getUTCMinutes().toString().padStart(2, '0') + 
                   ':' + 
-                  defaultDatetime.getUTCSeconds().toString().padStart(2, '0') + 
-                  'Z';
-      
-      const endTime = defaultDatetime.getUTCFullYear() + 
-                  '-' + 
-                  (defaultDatetime.getUTCMonth() + 1).toString().padStart(2, '0') + 
-                  '-' + 
-                  defaultDatetime.getUTCDate().toString().padStart(2, '0') + 
-                  'T' + 
-                  defaultDatetime.getUTCHours().toString().padStart(2, '0') + 
-                  ':' + 
-                  defaultDatetime.getUTCMinutes().toString().padStart(2, '0') + 
-                  ':' + 
-                  defaultDatetime.getUTCSeconds().toString().padStart(2, '0') + 
+                  endDatetime.getUTCSeconds().toString().padStart(2, '0') + 
                   'Z';
 
+      const startDatetime = endDatetime;
+      startDatetime.setDate(endDatetime.getDate() - 3);
+      const startTime = startDatetime.getUTCFullYear() + 
+                  '-' + 
+                  (startDatetime.getUTCMonth() + 1).toString().padStart(2, '0') + 
+                  '-' + 
+                  startDatetime.getUTCDate().toString().padStart(2, '0') + 
+                  'T' + 
+                  startDatetime.getUTCHours().toString().padStart(2, '0') + 
+                  ':' + 
+                  startDatetime.getUTCMinutes().toString().padStart(2, '0') + 
+                  ':' + 
+                  startDatetime.getUTCSeconds().toString().padStart(2, '0') + 
+                  'Z';
+       
       this.state = {
           isLoading: true,
           agentEventList: [],
