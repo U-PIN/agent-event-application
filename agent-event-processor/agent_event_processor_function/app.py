@@ -1,5 +1,6 @@
 import base64
 import boto3
+import datetime
 import json
 import os
 
@@ -15,7 +16,11 @@ def process_records(records, position):
         payload = json.loads(base64.b64decode(record['kinesis']['data']).decode('utf8'))
         ddb_items = convert_payload(payload)
 
-        event_type = ddb_items["EventType"]['S']
+        now = datetime.datetime.now()
+        now_ut = now.timestamp()
+        ddb_items['Unixtime']['N'] = int(now_ut)
+        
+        event_type = ddb_items['EventType']['S']
 
         if event_type == 'STATE_CHANGE':
             table_name = state_change_table

@@ -16,6 +16,9 @@ Resources:
       KeySchema:
         - AttributeName: EventId
           KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: Unixtime
+        Enabled: true
       ProvisionedThroughput:
         ReadCapacityUnits: 20
         WriteCapacityUnits: 5
@@ -30,6 +33,9 @@ Resources:
       KeySchema:
         - AttributeName: EventId
           KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: Unixtime
+        Enabled: true
       ProvisionedThroughput:
         ReadCapacityUnits: 20
         WriteCapacityUnits: 5
@@ -44,6 +50,9 @@ Resources:
       KeySchema:
         - AttributeName: EventId
           KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: Unixtime
+        Enabled: true
       ProvisionedThroughput:
         ReadCapacityUnits: 750
         WriteCapacityUnits: 5
