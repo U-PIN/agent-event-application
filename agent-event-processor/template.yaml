@@ -55,7 +55,7 @@ Resources:
         Enabled: true
       ProvisionedThroughput:
         ReadCapacityUnits: 750
-        WriteCapacityUnits: 5
+        WriteCapacityUnits: 750
 
   AgentEventStream:
     Type: AWS::Kinesis::Stream
