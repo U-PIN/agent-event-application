@@ -45,7 +45,7 @@ Resources:
         - AttributeName: EventId
           KeyType: HASH
       ProvisionedThroughput:
-        ReadCapacityUnits: 20
+        ReadCapacityUnits: 750
         WriteCapacityUnits: 5
 
   AgentEventStream:
