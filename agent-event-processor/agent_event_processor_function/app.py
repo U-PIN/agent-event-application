@@ -16,9 +16,9 @@ def process_records(records, position):
         payload = json.loads(base64.b64decode(record['kinesis']['data']).decode('utf8'))
         ddb_items = convert_payload(payload)
 
-        now = datetime.datetime.now()
-        now_ut = now.timestamp()
-        ddb_items['Unixtime']['N'] = int(now_ut)
+        ttl = datetime.datetime.now() + datetime.timedelta(days=7)
+        ttl_ut = ttl.timestamp()
+        ddb_items['Unixtime']['N'] = int(ttl_ut)
         
         event_type = ddb_items['EventType']['S']
 
