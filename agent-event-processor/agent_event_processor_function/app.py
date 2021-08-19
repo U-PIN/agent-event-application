@@ -9,19 +9,11 @@ heart_beat_table = "AgentHeartBeatTable-AgentEventApplication"
 region_name = os.environ.get('AWS_REGION')
 
 def process_records(records, position):
-    print('Length')
-    print(len(records))
 
     while position < len(records):
         record = records[position]
-        print('position: ')
-        print(position)
         payload = json.loads(base64.b64decode(record['kinesis']['data']).decode('utf8'))
-        print('payload: ')
-        print(payload)
         ddb_items = convert_payload(payload)
-        print('convert_payload: ')
-        print(convert_payload)
 
         event_type = ddb_items["EventType"]['S']
 
