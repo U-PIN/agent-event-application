@@ -18,7 +18,7 @@ def process_records(records, position):
 
         ttl = datetime.datetime.now() + datetime.timedelta(days=7)
         ttl_ut = ttl.timestamp()
-        ddb_items['Unixtime']['N'] = int(ttl_ut)
+        ddb_items['Unixtime'] = {'N': int(ttl_ut)}
         
         event_type = ddb_items['EventType']['S']
 
