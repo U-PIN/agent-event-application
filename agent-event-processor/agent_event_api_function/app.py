@@ -45,6 +45,10 @@ def lambda_handler(event, context):
 
     for item in all_events:
         agent_event = {}
+        
+        if 'Unixtime' in item:
+            item.pop('Unixtime')
+
         if start_time <= item["EventTimestamp"]["S"] <= end_time: 
             for key in item:
                 try:
