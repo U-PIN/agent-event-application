@@ -54,8 +54,8 @@ Resources:
         AttributeName: Unixtime
         Enabled: true
       ProvisionedThroughput:
-        ReadCapacityUnits: 750
-        WriteCapacityUnits: 750
+        ReadCapacityUnits: 100
+        WriteCapacityUnits: 5
 
   AgentEventStream:
     Type: AWS::Kinesis::Stream
