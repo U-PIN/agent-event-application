@@ -14,7 +14,8 @@ def process_records(records, position):
 
     while position < len(records):
         record = records[position]
-        print('position: {}'format(position))
+        print('position: ')
+        print(position)
         payload = json.loads(base64.b64decode(record['kinesis']['data']).decode('utf8'))
         print('payload: ')
         print(payload)
